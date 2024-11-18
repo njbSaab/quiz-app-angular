@@ -1,7 +1,11 @@
 <div class="quiz-list h-space">
   <div class="container bg-gradient-primary-0 rounded-box py-5">
     <div class="quiz-list-wrapper flex flex-wrap">
-      <div class="card quiz-item bg-card-gradient" *ngFor="let quiz of quizzes">
+      <div
+        class="card quiz-item bg-card-gradient"
+        *ngFor="let quiz of quizzes"
+        [routerLink]="['/quiz', quiz.id]"
+      >
         <figure>
           <img [src]="quiz.img" alt="{{ quiz.title }}" />
         </figure>

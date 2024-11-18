@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { QuizListModule } from './view/quiz-list/quiz-list.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { QuizSingleModule } from './view/quiz-single/quiz-single.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     QuizListModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    QuizSingleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

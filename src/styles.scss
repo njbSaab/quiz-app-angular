@@ -69,7 +69,7 @@
   position: relative;
 }
 .bg-base-3 {
-  background: #cc26d5;
+  background: #cc26d578;
   z-index: 1;
   position: relative;
 }
@@ -173,4 +173,10 @@
 }
 .accent-hover:hover {
   background-color: var(--vivid-pink);
+}
+.card {
+  .card-title {
+    justify-content: center;
+    padding-bottom: 10px;
+  }
 }
