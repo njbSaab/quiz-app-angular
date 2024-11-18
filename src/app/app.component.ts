@@ -10,7 +10,7 @@ export class AppComponent {
 
   toggleTheme(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked; // Проверяем состояние чекбокса
-    const theme = isChecked ? 'dracula' : 'acid'; // Выбираем тему
+    const theme = isChecked ? 'acid' : 'dracula'; // Выбираем тему
     document.documentElement.setAttribute('data-theme', theme); // Устанавливаем тему
   }
 }

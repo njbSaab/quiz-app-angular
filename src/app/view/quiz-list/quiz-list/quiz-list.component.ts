@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { QuizService } from '../../../core/services/quiz.service';
+import { Quiz } from '../../../core/interfaces/quiz.interace';
 
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
-  styleUrl: './quiz-list.component.scss'
+  styleUrls: ['./quiz-list.component.scss'],
 })
-export class QuizListComponent {
+export class QuizListComponent implements OnInit {
+  quizzes: Quiz[] = []; // Указываем тип для массива викторин
 
+  constructor(private quizService: QuizService) {}
+
+  ngOnInit(): void {
+    this.loadQuizzes();
+  }
+
+  loadQuizzes(): void {
+    this.quizService.getQuizzes().subscribe(
+      (data: Quiz[]) => {
+        console.log('Полученные данные:', data);
+        this.quizzes = data; // Прямое присвоение
+      },
+      (error) => {
+        console.error('Ошибка загрузки данных:', error);
+        alert('Не удалось загрузить викторины.');
+      }
+    );
+  }
 }

@@ -1,0 +1,31 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .navbar {
+    width: 80%;
+    border-radius: 20px;
+    position: fixed;
+    margin: 40px 0;
+    z-index: 99;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 0;
+    right: 1000px;
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+    transition: right 0.3s ease-in-out opacity 0.2s ease-in-out;
+  }
+
+  .nav-menu.show {
+    left: 100%;
+    z-index: 999;
+    visibility: visible;
+    opacity: 1;
+    transition: right 0.3s ease-in-out opacity 0.2s ease-in-out;
+  }
+}
