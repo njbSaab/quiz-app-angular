@@ -1,36 +1,17 @@
-<!-- <div class="h-space" *ngIf="quiz; else notFound">
+<div class="h-space" *ngIf="quiz; else notFound">
   <h1>{{ quiz.title }}</h1>
+  <!-- <p>{{ quiz.description }}</p> -->
 
+  <!-- Таймер -->
   <div
     class="radial-progress text-primary"
-    style="--value: 70"
+    [style.--value]="progress"
     role="progressbar"
   >
     <span class="countdown font-mono text-3xl">
-      <span style="--value:${counter};"></span>
+      <span>{{ currentTime }}</span>
     </span>
   </div>
-
-  <div *ngFor="let question of questions">
-    <h3>{{ question.questionText }}</h3>
-    <div *ngIf="question.img">
-      <img [src]="question.img" alt="Question Image" />
-    </div>
-    <ul>
-      <li *ngFor="let answer of question.answers">
-        {{ answer.text }}
-      </li>
-    </ul>
-  </div>
-</div>
-
-<ng-template #notFound>
-  <p>Викторина не найдена!</p>
-</ng-template> -->
-
-<div class="h-space" *ngIf="quiz; else notFound">
-  <h1>{{ quiz.title }}</h1>
-  <p>{{ quiz.description }}</p>
 
   <!-- Отображаем текущий вопрос -->
   <div *ngIf="currentQuestionIndex < questions.length; else finished">

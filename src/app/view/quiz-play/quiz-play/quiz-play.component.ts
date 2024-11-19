@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz, Question } from '../../../core/interfaces/quiz.interface';
 import { QuizPlayService } from '../../../core/services/quiz-play.service';
+import { TimerService } from '../../../core/services/timer.service';
 
 @Component({
   selector: 'app-quiz-play',
@@ -13,17 +14,34 @@ export class QuizPlayComponent implements OnInit {
   questions: Question[] = []; // Список вопросов
   currentQuestionIndex: number = 0; // Индекс текущего вопроса
   correctAnswersCount: number = 0; // Количество правильных ответов
+  currentTime: number = 30;
+  progress: number = 0;
 
   constructor(
     private quizPlayService: QuizPlayService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private timerService: TimerService
   ) {}
 
   ngOnInit(): void {
     this.currentQuestionIndex = 0;
     this.correctAnswersCount = 0;
-    const quizId = Number(this.route.snapshot.paramMap.get('id')); // Получаем ID викторины
 
+    this.timerService.currentTime$.subscribe((time) => {
+      this.currentTime = time;
+
+      // Обработка окончания времени
+      if (time === 0) {
+        console.log('Время истекло!');
+        this.goToNextQuestion(); // Переход к следующему вопросу
+      }
+    });
+
+    this.timerService.progress$.subscribe((progress) => {
+      this.progress = progress;
+    });
+
+    const quizId = Number(this.route.snapshot.paramMap.get('id'));
     this.quizPlayService.getQuizById(quizId).subscribe((quiz) => {
       if (quiz) {
         this.quiz = quiz;
@@ -35,24 +53,33 @@ export class QuizPlayComponent implements OnInit {
 
         this.currentQuestionIndex = storedIndex ? +storedIndex : 0;
         this.correctAnswersCount = storedCorrectCount ? +storedCorrectCount : 0;
+
+        // Запуск таймера для первого вопроса
+        this.timerService.startTimer();
       }
     });
   }
 
   onAnswerSelect(isCorrect: number): void {
-    // Проверяем правильность ответа
     if (isCorrect === 1) {
       this.correctAnswersCount++;
       localStorage.setItem('correctAnswersCount', this.correctAnswersCount.toString());
     }
 
     // Переход к следующему вопросу
+    this.goToNextQuestion();
+  }
+
+  goToNextQuestion(): void {
     this.currentQuestionIndex++;
     localStorage.setItem('currentQuestionIndex', this.currentQuestionIndex.toString());
 
-    // Если вопросы закончились, сбрасываем прогресс
-    if (this.currentQuestionIndex >= this.questions.length) {
-      console.log('Викторина окончена');
+    if (this.currentQuestionIndex < this.questions.length) {
+      // Перезапуск таймера для следующего вопроса
+      this.timerService.startTimer();
+    } else {
+      console.log('Викторина завершена');
+      this.timerService.stopTimer();
     }
   }
 
@@ -62,5 +89,10 @@ export class QuizPlayComponent implements OnInit {
     localStorage.removeItem('currentQuestionIndex');
     localStorage.removeItem('correctAnswersCount');
   }
-
+  // Обработчик окончания вопроса или времени
+  onTimeUp(): void {
+    if (this.currentTime === 0) {
+      console.log('Время истекло!'); // Действия при истечении времени
+    }
+  }
 }
