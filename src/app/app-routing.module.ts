@@ -1,4 +1,3 @@
-import { QuizResultModule } from './view/quiz-result/quiz-result.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

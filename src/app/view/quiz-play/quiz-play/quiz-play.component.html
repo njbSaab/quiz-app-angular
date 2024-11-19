@@ -49,9 +49,18 @@
 
 <!-- Финальный экран -->
 <ng-template #finished>
-  <h2>Викторина завершена!</h2>
-  <p>Правильных ответов: {{ correctAnswersCount }} из {{ questions.length }}</p>
-  <button (click)="resetProgress()">Начать заново</button>
+  <h2 class="text-3xl py-5">Викторина завершена!</h2>
+  <div class="btn-grup flex flex-col gap-3">
+    <button class="btn btn-ghost" (click)="resetProgress()">
+      Начать заново
+    </button>
+    <button
+      [routerLink]="['/quiz', quiz?.id, 'result']"
+      class="btn btn-success"
+    >
+      Получить результат
+    </button>
+  </div>
 </ng-template>
 
 <ng-template #notFound>
