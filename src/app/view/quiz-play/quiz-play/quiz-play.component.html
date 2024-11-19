@@ -1,28 +1,45 @@
-<div class="h-space" *ngIf="quiz; else notFound">
-  <h1>{{ quiz.title }}</h1>
-  <!-- <p>{{ quiz.description }}</p> -->
+<div class="quiz-play" *ngIf="quiz; else notFound" appChangeBackground>
+  <div class="container">
+    <h1 class="text-center text-3xl py-5">{{ quiz.title }}</h1>
+    <!-- <p>{{ quiz.description }}</p> -->
 
-  <!-- Таймер -->
-  <div
-    class="radial-progress text-primary"
-    [style.--value]="progress"
-    role="progressbar"
-  >
-    <span class="countdown font-mono text-3xl">
-      <span>{{ currentTime }}</span>
-    </span>
-  </div>
+    <div
+      class="quiz-play-quistion bg-gradient-base-180 flex flex-col items-center justify-center relative"
+    >
+      <div class="timer-box">
+        <div
+          class="radial-progress bg-base-100"
+          [style.--value]="progress"
+          role="progressbar"
+          [ngClass]="{
+            'text-error': currentTime < 5,
+            'text-accent': currentTime >= 5 && currentTime < 10,
+            'text-primary': currentTime >= 10
+          }"
+        >
+          <span class="countdown font-mono text-3xl">
+            <span [style.--value]="currentTime"></span>
+          </span>
+        </div>
+      </div>
 
-  <!-- Отображаем текущий вопрос -->
-  <div *ngIf="currentQuestionIndex < questions.length; else finished">
-    <h3>{{ questions[currentQuestionIndex].questionText }}</h3>
-    <div *ngIf="questions[currentQuestionIndex]?.img">
-      <img [src]="questions[currentQuestionIndex].img" alt="Question Image" />
+      <!-- Отображаем текущий вопрос -->
+      <div
+        class="quistion-text"
+        *ngIf="currentQuestionIndex < questions.length; else finished"
+      >
+        <h3 class="text-2xl">
+          {{ questions[currentQuestionIndex].questionText }}
+        </h3>
+      </div>
     </div>
-    <ul>
+
+    <ul class="quiz-play-answers-list">
       <li
         *ngFor="let answer of questions[currentQuestionIndex]?.answers"
         (click)="onAnswerSelect(answer.isCorrect)"
+        appRandomBackground
+        class="quiz-play-answers-item bg-gradient-base-0 flex items-center justify-center cursor-pointer text-center"
       >
         {{ answer.text }}
       </li>

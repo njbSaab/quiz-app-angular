@@ -48,5 +48,8 @@ export class TimerService {
       this.timerSubscription.unsubscribe();
       this.timerSubscription = null;
     }
+
+    this.currentTime$.next(this.totalTime);
+    this.progress$.next(0);
   }
 }

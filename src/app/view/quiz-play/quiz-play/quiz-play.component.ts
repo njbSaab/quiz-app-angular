@@ -29,6 +29,7 @@ export class QuizPlayComponent implements OnInit {
 
     this.timerService.currentTime$.subscribe((time) => {
       this.currentTime = time;
+      console.log('Текущее время:', time);
 
       // Обработка окончания времени
       if (time === 0) {
@@ -72,14 +73,17 @@ export class QuizPlayComponent implements OnInit {
 
   goToNextQuestion(): void {
     this.currentQuestionIndex++;
+    console.log(`Переход к вопросу: ${this.currentQuestionIndex}`);
     localStorage.setItem('currentQuestionIndex', this.currentQuestionIndex.toString());
 
-    if (this.currentQuestionIndex < this.questions.length) {
-      // Перезапуск таймера для следующего вопроса
-      this.timerService.startTimer();
-    } else {
-      console.log('Викторина завершена');
+    if (this.currentQuestionIndex >= this.questions.length) {
+      console.log('Викторина завершена. Таймер остановлен.');
       this.timerService.stopTimer();
+      this.currentTime = 0;
+      this.progress = 100;
+    } else {
+      console.log('Таймер запущен для следующего вопроса.');
+      this.timerService.startTimer();
     }
   }
 

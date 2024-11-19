@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuizSingleModule } from './view/quiz-single/quiz-single.module';
 import { QuizPlayModule } from './view/quiz-play/quiz-play.module';
 import { CommonModule } from '@angular/common';
+import { QuizResultModule } from './view/quiz-result/quiz-result.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     QuizSingleModule,
     QuizPlayModule,
-    CommonModule
+    CommonModule,
+    QuizResultModule
   ],
   providers: [],
   bootstrap: [AppComponent]

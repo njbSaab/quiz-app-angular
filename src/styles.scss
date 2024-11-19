@@ -8,7 +8,7 @@
   --electric-violet: oklch(53.18% 0.28 296.97);
   --french-violet: oklch(47.66% 0.246 305.88);
   --vivid-pink: oklch(69.02% 0.277 332.77);
-  --hot-red: oklch(61.42% 0.238 15.34);
+  --hot-red: oklch(58.42% 0.238 15.34);
   --orange-red: oklch(63.32% 0.24 31.68);
 
   --gray-900: oklch(19.37% 0.006 300.98);
@@ -57,6 +57,29 @@
 [data-theme="bumblebee"] {
   --card-gradient: linear-gradient(380deg, var(--light), transparent);
 }
+.random-hover-1 {
+  background: var(--bright-blue);
+}
+
+.random-hover-2 {
+  background: var(--electric-violet);
+}
+
+.random-hover-3 {
+  background: var(--french-violet);
+}
+
+.random-hover-4 {
+  background: var(--vivid-pink);
+}
+
+.random-hover-5 {
+  background: var(--hot-red);
+}
+
+.random-hover-6 {
+  background: var(--orange-red);
+}
 
 .bg-base-1 {
   background: #282a36;
@@ -79,19 +102,52 @@
   position: relative;
 }
 .bg-gradient-primary-0 {
-  background: linear-gradient(0deg, #f0060b, #f0070c, #cc26d5, #7702ff);
+  background: linear-gradient(
+    0deg,
+    #f0060b,
+    #f0070c,
+    #cc26d5,
+    #7702ff
+  ) !important;
 }
 .bg-gradient-primary-90 {
-  background: linear-gradient(90deg, #f0060b, #f0070c, #cc26d5, #7702ff);
+  background: linear-gradient(
+    90deg,
+    #f0060b,
+    #f0070c,
+    #cc26d5,
+    #7702ff
+  ) !important;
 }
 .bg-gradient-primary-180 {
-  background: linear-gradient(180deg, #f0060b, #f0070c, #cc26d5, #7702ff);
+  background: linear-gradient(
+    180deg,
+    #f0060b,
+    #f0070c,
+    #cc26d5,
+    #7702ff
+  ) !important;
 }
 .bg-gradient-primary-240 {
-  background: linear-gradient(240deg, #f0060b, #f0070c, #cc26d5, #7702ff);
+  background: linear-gradient(
+    240deg,
+    #f0060b,
+    #f0070c,
+    #cc26d5,
+    #7702ff
+  ) !important;
 }
 .bg-gradient-primary-360 {
-  background: linear-gradient(360deg, #f0060b, #f0070c, #cc26d5, #7702ff);
+  background: linear-gradient(
+    360deg,
+    #f0060b,
+    #f0070c,
+    #cc26d5,
+    #7702ff
+  ) !important;
+}
+.bg-gradient-base-0 {
+  background: linear-gradient(0deg, #282a36, #414557);
 }
 .bg-gradient-base-90 {
   background: linear-gradient(90deg, #282a36, #414557);

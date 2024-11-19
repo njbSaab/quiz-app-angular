@@ -1,3 +1,4 @@
+import { QuizResultModule } from './view/quiz-result/quiz-result.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'quiz/:id/play',
     loadChildren: () =>
       import('./view/quiz-play/quiz-play.module').then((m) => m.QuizPlayModule),
+  },
+  {
+    path: 'quiz/:id/result',
+    loadChildren: () =>
+      import('./view/quiz-result/quiz-result.module').then((m) => m.QuizResultModule),
   },
   { path: '**', redirectTo: 'quizzes' }, // Переадресация на список квизов при неправильном пути
 ];
