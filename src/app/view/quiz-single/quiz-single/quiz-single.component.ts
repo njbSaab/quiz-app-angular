@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { Quiz } from '../../../core/interfaces/quiz.interace';
+import { Quiz } from '../../../core/interfaces/quiz.interface';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../../../core/services/quiz.service';
 
@@ -34,13 +34,5 @@ export class QuizSingleComponent {
   }
   arrowHide(): void {
     this.isArrow = false;
-  }
-  mouseX: number = 0;
-  mouseY: number = 0;
-
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
   }
 }

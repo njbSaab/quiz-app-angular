@@ -12,13 +12,15 @@
     // --electric-violet: oklch(53.18% 0.28 296.97);
     // --french-violet: oklch(47.66% 0.246 305.88);
   }
-
+  .collapse-title {
+    padding-inline-end: 0;
+  }
   .rating input[type="radio"]:checked {
     background-image: var(--vivid-pink);
   }
 
   figure {
-    width: 50%;
+    max-width: 500px;
     margin: 0 auto;
     cursor: pointer;
   }
@@ -35,6 +37,7 @@
       position: absolute;
       transition: all 0.5s ease;
       top: 0;
+      aspect-ratio: 16 / 9;
     }
 
     img:nth-child(1) {

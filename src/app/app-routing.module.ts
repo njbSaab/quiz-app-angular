@@ -1,17 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuizListComponent } from './view/quiz-list/quiz-list/quiz-list.component'; // Импорт компонента
-import { QuizSingleComponent } from './view/quiz-single/quiz-single/quiz-single.component';
 
 const routes: Routes = [
-  { path: '', component: QuizListComponent }, // Главная страница
-  { path: 'quiz/:id', component: QuizSingleComponent }, // Страница викторины
-
-  { path: '**', redirectTo: '' }, // Редирект для неизвестных маршрутов
+  { path: '', redirectTo: 'quizzes', pathMatch: 'full' }, // Редирект на список квизов
+  {
+    path: 'quizzes',
+    loadChildren: () =>
+      import('./view/quiz-list/quiz-list.module').then((m) => m.QuizListModule), // Ленивый загрузчик для модуля списка квизов
+  },
+  {
+    path: 'quiz/:id',
+    loadChildren: () =>
+      import('./view/quiz-single/quiz-single.module').then((m) => m.QuizSingleModule), // Ленивый загрузчик для модуля одного квиза
+  },
+  {
+    path: 'quiz/:id/play',
+    loadChildren: () =>
+      import('./view/quiz-play/quiz-play.module').then((m) => m.QuizPlayModule),
+  },
+  { path: '**', redirectTo: 'quizzes' }, // Переадресация на список квизов при неправильном пути
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)], // Настройка маршрутов
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes)], // Настройка маршрутов для основного приложения
+  exports: [RouterModule], // Экспортируем RouterModule, чтобы он мог использоваться в AppModule
 })
 export class AppRoutingModule {}

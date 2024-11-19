@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: QuizListComponent },
+];
 
 @NgModule({
   declarations: [
@@ -9,7 +13,7 @@ import { RouterLink } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterLink
+    RouterModule.forChild(routes), // Определяем маршруты прямо здесь
   ],
   exports: [
     QuizListComponent, // Экспорт компонента, если потребуется

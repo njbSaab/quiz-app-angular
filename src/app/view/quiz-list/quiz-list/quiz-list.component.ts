@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../core/services/quiz.service';
-import { Quiz } from '../../../core/interfaces/quiz.interace';
+import { Quiz } from '../../../core/interfaces/quiz.interface';
 
 @Component({
   selector: 'app-quiz-list',
@@ -24,7 +24,7 @@ export class QuizListComponent implements OnInit {
       },
       (error) => {
         console.error('Ошибка загрузки данных:', error);
-        alert('Не удалось загрузить викторины.');
+        // alert('Не удалось загрузить викторины.');
       }
     );
   }

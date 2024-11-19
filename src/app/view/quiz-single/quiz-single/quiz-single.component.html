@@ -1,7 +1,10 @@
 <div *ngIf="quiz; else notFound" class="quiz-detail h-space">
   <div class="card bg-gradient-base-180 pt-4">
     <div class="img-wrapper">
-      <figure class="relative z-10 relative img-stack-wrapper">
+      <figure
+        class="relative z-10 relative img-stack-wrapper"
+        [routerLink]="['/quiz', quiz.id, 'play']"
+      >
         <img class="rounded-box" [src]="quiz.img" alt="{{ quiz.title }}" />
         <img
           class="rounded-box absolute"
@@ -68,7 +71,10 @@
         <div class="collapse-content">
           <p class="pt-2">{{ quiz.description_long }}</p>
         </div>
-        <div class="btn btn-accent btn-single">
+        <div
+          class="btn btn-accent btn-single"
+          [routerLink]="['/quiz', quiz.id, 'play']"
+        >
           <span>
             <svg
               class="h-10 w-10 fill-current"
