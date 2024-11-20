@@ -4,7 +4,7 @@
     <!-- <p>{{ quiz.description }}</p> -->
 
     <div
-      class="quiz-play-quistion bg-gradient-base-180 flex flex-col items-center justify-center relative"
+      class="quiz-play-quistion bg-gradient-base-180 flex flex-col items-center justify-center relative quiz-container"
     >
       <div class="timer-box">
         <div
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <ul class="quiz-play-answers-list">
+    <ul class="quiz-play-answers-list quiz-container">
       <li
         *ngFor="let answer of questions[currentQuestionIndex]?.answers"
         (click)="onAnswerSelect(answer.isCorrect)"

@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ChangeBackgroundDirective } from './directives/change-background.directive';
 import { RandomBackgroundDirective } from './directives/random-class.directive';
+import { RouterLink, RouterModule } from '@angular/router';
 
 
 
@@ -15,7 +16,9 @@ import { RandomBackgroundDirective } from './directives/random-class.directive';
     RandomBackgroundDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink,
+    RouterModule
   ],
   exports: [
     HeaderComponent,

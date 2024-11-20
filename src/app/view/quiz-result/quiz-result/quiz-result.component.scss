@@ -1,7 +1,6 @@
 .quiz-result {
   border-radius: 20px;
   form {
-    background: #282a36;
     border-radius: 20px;
     max-width: 400px;
     margin: 0 auto;
@@ -20,6 +19,8 @@
   .btn {
     width: 100%;
     boreder-radius: 0 !important;
+    height: 55px;
+    font-size: 15px;
   }
   .btn:active {
     transform: scale(1);

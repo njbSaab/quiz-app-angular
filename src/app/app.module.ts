@@ -9,6 +9,9 @@ import { QuizSingleModule } from './view/quiz-single/quiz-single.module';
 import { QuizPlayModule } from './view/quiz-play/quiz-play.module';
 import { CommonModule } from '@angular/common';
 import { QuizResultModule } from './view/quiz-result/quiz-result.module';
+import { AboutModule } from './view/about/about.module';
+import { ContactsComponent } from './view/contacts/contacts/contacts.component';
+import { ContactsModule } from './view/contacts/contacts.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import { QuizResultModule } from './view/quiz-result/quiz-result.module';
     HttpClientModule,
     QuizSingleModule,
     QuizPlayModule,
+    AboutModule,
+    ContactsModule,
     CommonModule,
     QuizResultModule
   ],

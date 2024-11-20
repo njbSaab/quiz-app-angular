@@ -1,3 +1,5 @@
+import { ContactsModule } from './view/contacts/contacts.module';
+import { AboutModule } from './view/about/about.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -22,6 +24,16 @@ const routes: Routes = [
     path: 'quiz/:id/result',
     loadChildren: () =>
       import('./view/quiz-result/quiz-result.module').then((m) => m.QuizResultModule),
+  },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./view/about/about.module').then((m) => m.AboutModule),
+  },
+  {
+    path: 'contacts',
+    loadChildren: () =>
+      import('./view/contacts/contacts.module').then((m) => m.ContactsModule),
   },
   { path: '**', redirectTo: 'quizzes' }, // Переадресация на список квизов при неправильном пути
 ];

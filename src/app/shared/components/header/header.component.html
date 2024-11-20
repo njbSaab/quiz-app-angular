@@ -1,7 +1,8 @@
 <header class="header">
   <div class="navbar glass">
+    <!-- <div class="navbar-wrapper-menu"></div> -->
     <div class="navbar-start">
-      <div class="nav-dropdown relative">
+      <div class="nav-dropdown glass relative">
         <div
           tabindex="0"
           role="button"
@@ -38,14 +39,41 @@
           </label>
         </div>
         <ul tabindex="0" class="nav-menu flex gap-4">
-          <li><a class="btn btn-ghost accent-hover">Home</a></li>
-          <li><a class="btn btn-ghost accent-hover">About</a></li>
-          <li><a class="btn btn-ghost accent-hover">Contacts</a></li>
+          <li>
+            <a
+              class="btn btn-ghost accent-hover"
+              routerLinkActive="router-link-active"
+              [routerLink]="['/']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              class="btn btn-ghost accent-hover"
+              routerLinkActive="router-link-active"
+              [routerLink]="['/about']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              class="btn btn-ghost accent-hover"
+              [routerLink]="['/contacts']"
+              routerLinkActive="router-link-active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Contacts</a
+            >
+          </li>
         </ul>
       </div>
     </div>
     <div class="navbar-center">
-      <a class="logo-link btn-neutral btn-circle">
+      <a
+        class="logo-link btn-neutral btn-circle cursor-pointer"
+        [routerLink]="['/']"
+      >
         <img class="logo" src="https://i.imgur.com/4agXsdb.png" alt="" />
       </a>
     </div>
