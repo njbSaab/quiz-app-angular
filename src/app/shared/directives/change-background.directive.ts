@@ -5,11 +5,11 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class ChangeBackgroundDirective {
   private colors: string[] = [
-    'bg-gradient-primary-0',
-    'bg-gradient-primary-90',
-    'bg-gradient-primary-180',
-    'bg-gradient-primary-240',
-    'bg-gradient-primary-360',
+    'bg-gradinet-red-90',
+    'bg-gradient-regular-90',
+    'bg-gradinet-accent-0',
+    'bg-gradient-regular-0',
+    'bg-gradinet-red-0',
   ];
   private currentIndex = -1;
 

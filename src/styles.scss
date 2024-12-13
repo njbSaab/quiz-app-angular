@@ -166,6 +166,48 @@
 .bg-gradient-base-360 {
   background: linear-gradient(360deg, #282a36, #414557);
 }
+.bg-gradient-regular-0 {
+  background: linear-gradient(90deg, #7802ff8a, #cc26d583) !important;
+}
+.bg-gradient-regular-90 {
+  background: linear-gradient(90deg, #cc26d5c1, #7802ffb0) !important;
+}
+.bg-gradient-regular-180 {
+  background: linear-gradient(180deg, #7702ff, #cc26d5);
+}
+.bg-gradient-regular-240 {
+  background: linear-gradient(240deg, #7702ff, #cc26d5);
+}
+.bg-gradient-regular-360 {
+  background: linear-gradient(360deg, #7702ff, #cc26d5);
+}
+.bg-gradient-reg-transp-90 {
+  background: linear-gradient(90deg #7702ff, #7802ff2c) !important;
+}
+.bg-gradient-reg-transp-180 {
+  background: linear-gradient(180deg #7702ff, #7802ff2c);
+}
+.bg-gradinet-accent-0 {
+  background: linear-gradient(90deg, #cc26d5, #cc26d52c) !important;
+}
+.bg-gradinet-accent-90 {
+  background: linear-gradient(90deg, #cc26d5, #cc26d52c);
+}
+.bg-gradinet-accent-180 {
+  background: linear-gradient(180deg, #cc26d5, #cc26d52c);
+}
+.bg-gradinet-accent-240 {
+  background: linear-gradient(240deg, #cc26d5, #cc26d52c);
+}
+.bg-gradinet-red-0 {
+  background: linear-gradient(90deg, #f0070bad, #f0070b2b) !important;
+}
+.bg-gradinet-red-90 {
+  background: linear-gradient(90deg, #cc26d5, #f0070b2b) !important;
+}
+.bg-red-v {
+  background: #f0070c;
+}
 .bg-accent-v {
   background: #cc26d5;
 }
@@ -181,6 +223,7 @@
 .color-regular {
   color: #7702ff;
 }
+
 .color-light {
   color: white;
 }
