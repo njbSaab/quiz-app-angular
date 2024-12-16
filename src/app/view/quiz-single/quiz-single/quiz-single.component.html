@@ -1,6 +1,6 @@
 <div *ngIf="quiz; else notFound" class="quiz-detail h-space">
   <div class="card bg-gradient-base-180 pt-4">
-    <div class="img-wrapper">
+    <div class="img-wrapper" [@blurIn]>
       <figure
         class="relative z-10 relative img-stack-wrapper"
         [routerLink]="['/quiz', quiz.id, 'play']"

@@ -1,4 +1,16 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+} from '@angular/animations';
 import { Quiz } from '../../../core/interfaces/quiz.interface';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../../../core/services/quiz.service';
@@ -6,11 +18,30 @@ import { QuizService } from '../../../core/services/quiz.service';
 @Component({
   selector: 'app-quiz-single',
   templateUrl: './quiz-single.component.html',
-  styleUrl: './quiz-single.component.scss'
+  styleUrls: ['./quiz-single.component.scss'],
+  animations: [
+    trigger('blurIn', [
+      transition(':enter', [
+        query(
+          '.rounded-box',
+          [
+            style({ opacity: 0, filter: 'blur(10px)' }),
+            stagger(150, [
+              animate(
+                '700ms ease-in-out',
+                style({ opacity: 1, filter: 'blur(0px)' })
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+  ]
 })
-export class QuizSingleComponent {
+export class QuizSingleComponent implements OnInit {
   quiz: Quiz | null = null;
-  isArrow = true;
+
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService
@@ -22,6 +53,7 @@ export class QuizSingleComponent {
       this.loadQuiz(+id); // Загружаем данные викторины
     }
   }
+
   loadQuiz(id: number): void {
     this.quizService.getQuizzes().subscribe(
       (quizzes: Quiz[]) => {
@@ -32,6 +64,13 @@ export class QuizSingleComponent {
       }
     );
   }
+
+  isArrow: boolean = false;
+
+  arrowShow(): void {
+    this.isArrow = true;
+  }
+
   arrowHide(): void {
     this.isArrow = false;
   }

@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+} from '@angular/animations';
 import { QuizService } from '../../../core/services/quiz.service';
 import { Quiz } from '../../../core/interfaces/quiz.interface';
 
@@ -6,9 +14,21 @@ import { Quiz } from '../../../core/interfaces/quiz.interface';
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
   styleUrls: ['./quiz-list.component.scss'],
+  animations: [
+    trigger('listAnimation', [
+      transition(':enter', [
+        query('.quiz-item', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger(100, [
+            animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+          ]),
+        ]),
+      ]),
+    ]),
+  ],
 })
 export class QuizListComponent implements OnInit {
-  quizzes: Quiz[] = []; // Указываем тип для массива викторин
+  quizzes: Quiz[] = [];
 
   constructor(private quizService: QuizService) {}
 
@@ -20,11 +40,10 @@ export class QuizListComponent implements OnInit {
     this.quizService.getQuizzes().subscribe(
       (data: Quiz[]) => {
         console.log('Полученные данные:', data);
-        this.quizzes = data; // Прямое присвоение
+        this.quizzes = data;
       },
       (error) => {
         console.error('Ошибка загрузки данных:', error);
-        // alert('Не удалось загрузить викторины.');
       }
     );
   }

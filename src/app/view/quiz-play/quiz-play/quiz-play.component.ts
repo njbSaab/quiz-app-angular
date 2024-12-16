@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+} from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz, Question } from '../../../core/interfaces/quiz.interface';
 import { QuizPlayService } from '../../../core/services/quiz-play.service';
@@ -8,12 +19,37 @@ import { TimerService } from '../../../core/services/timer.service';
   selector: 'app-quiz-play',
   templateUrl: './quiz-play.component.html',
   styleUrls: ['./quiz-play.component.scss'],
+  animations: [
+    trigger('questionFadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-30px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+    trigger('answersFadeIn', [
+      transition(':enter', [
+        query(
+          '.quiz-play-answers-item',
+          [
+            style({ opacity: 0, transform: 'scale(0.8)' }),
+            stagger(100, [
+              animate(
+                '400ms ease-out',
+                style({ opacity: 1, transform: 'scale(1)' })
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
+  ],
 })
 export class QuizPlayComponent implements OnInit {
-  quiz: Quiz | undefined; // Текущая викторина
-  questions: Question[] = []; // Список вопросов
-  currentQuestionIndex: number = 0; // Индекс текущего вопроса
-  correctAnswersCount: number = 0; // Количество правильных ответов
+  quiz: Quiz | undefined;
+  questions: Question[] = [];
+  currentQuestionIndex: number = 0;
+  correctAnswersCount: number = 0;
   currentTime: number = 30;
   progress: number = 0;
 
@@ -29,12 +65,9 @@ export class QuizPlayComponent implements OnInit {
 
     this.timerService.currentTime$.subscribe((time) => {
       this.currentTime = time;
-      console.log('Текущее время:', time);
 
-      // Обработка окончания времени
       if (time === 0) {
-        console.log('Время истекло!');
-        this.goToNextQuestion(); // Переход к следующему вопросу
+        this.goToNextQuestion();
       }
     });
 
@@ -48,14 +81,14 @@ export class QuizPlayComponent implements OnInit {
         this.quiz = quiz;
         this.questions = quiz.questions;
 
-        // Восстановление прогресса из localStorage
         const storedIndex = localStorage.getItem('currentQuestionIndex');
         const storedCorrectCount = localStorage.getItem('correctAnswersCount');
 
         this.currentQuestionIndex = storedIndex ? +storedIndex : 0;
-        this.correctAnswersCount = storedCorrectCount ? +storedCorrectCount : 0;
+        this.correctAnswersCount = storedCorrectCount
+          ? +storedCorrectCount
+          : 0;
 
-        // Запуск таймера для первого вопроса
         this.timerService.startTimer();
       }
     });
@@ -64,25 +97,27 @@ export class QuizPlayComponent implements OnInit {
   onAnswerSelect(isCorrect: number): void {
     if (isCorrect === 1) {
       this.correctAnswersCount++;
-      localStorage.setItem('correctAnswersCount', this.correctAnswersCount.toString());
+      localStorage.setItem(
+        'correctAnswersCount',
+        this.correctAnswersCount.toString()
+      );
     }
 
-    // Переход к следующему вопросу
     this.goToNextQuestion();
   }
 
   goToNextQuestion(): void {
     this.currentQuestionIndex++;
-    console.log(`Переход к вопросу: ${this.currentQuestionIndex}`);
-    localStorage.setItem('currentQuestionIndex', this.currentQuestionIndex.toString());
+    localStorage.setItem(
+      'currentQuestionIndex',
+      this.currentQuestionIndex.toString()
+    );
 
     if (this.currentQuestionIndex >= this.questions.length) {
-      console.log('Викторина завершена. Таймер остановлен.');
       this.timerService.stopTimer();
       this.currentTime = 0;
       this.progress = 100;
     } else {
-      console.log('Таймер запущен для следующего вопроса.');
       this.timerService.startTimer();
     }
   }
@@ -92,11 +127,5 @@ export class QuizPlayComponent implements OnInit {
     this.correctAnswersCount = 0;
     localStorage.removeItem('currentQuestionIndex');
     localStorage.removeItem('correctAnswersCount');
-  }
-  // Обработчик окончания вопроса или времени
-  onTimeUp(): void {
-    if (this.currentTime === 0) {
-      console.log('Время истекло!'); // Действия при истечении времени
-    }
   }
 }

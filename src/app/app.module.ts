@@ -10,9 +10,8 @@ import { QuizPlayModule } from './view/quiz-play/quiz-play.module';
 import { CommonModule } from '@angular/common';
 import { QuizResultModule } from './view/quiz-result/quiz-result.module';
 import { AboutModule } from './view/about/about.module';
-import { ContactsComponent } from './view/contacts/contacts/contacts.component';
 import { ContactsModule } from './view/contacts/contacts.module';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +27,8 @@ import { ContactsModule } from './view/contacts/contacts.module';
     AboutModule,
     ContactsModule,
     CommonModule,
-    QuizResultModule
+    QuizResultModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

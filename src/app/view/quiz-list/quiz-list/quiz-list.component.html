@@ -2,7 +2,10 @@
   <!-- Если массив quizzes пустой, отображаем загрузку -->
   <ng-container *ngIf="quizzes?.length; else loading">
     <div class="container bg-gradient-primary-0 rounded-box py-5">
-      <div class="quiz-list-wrapper flex flex-wrap flex-col md:flex-row">
+      <div
+        class="quiz-list-wrapper flex flex-wrap flex-col md:flex-row"
+        [@listAnimation]
+      >
         <div
           class="card quiz-item bg-card-gradient"
           *ngFor="let quiz of quizzes"
