@@ -390,6 +390,9 @@
     }
     .form-wrapper {
       padding: 20px;
+      .input {
+        outline-color: #7702ff !important;
+      }
     }
     h2 {
       font-size: 24px;

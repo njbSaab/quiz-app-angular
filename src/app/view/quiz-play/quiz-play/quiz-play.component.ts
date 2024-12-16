@@ -20,22 +20,39 @@ import { TimerService } from '../../../core/services/timer.service';
   templateUrl: './quiz-play.component.html',
   styleUrls: ['./quiz-play.component.scss'],
   animations: [
+    // Анимация для вопроса
     trigger('questionFadeIn', [
-      transition(':enter', [
+      transition(':increment', [
         style({ opacity: 0, transform: 'translateY(-30px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate('800ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
       ]),
     ]),
     trigger('answersFadeIn', [
-      transition(':enter', [
+      // Анимация появления новых ответов
+      transition(':increment', [
         query(
           '.quiz-play-answers-item',
           [
-            style({ opacity: 0, transform: 'scale(0.8)' }),
+            style({ opacity: 0, transform: 'translateY(20px)' }), // Элементы начинают снизу
             stagger(100, [
               animate(
-                '400ms ease-out',
-                style({ opacity: 1, transform: 'scale(1)' })
+                '500ms ease-out',
+                style({ opacity: 1, transform: 'translateY(0)' }) // Плавное появление и подъем
+              ),
+            ]),
+          ],
+          { optional: true }
+        ),
+      ]),
+      // Анимация исчезновения старых ответов
+      transition(':leave', [
+        query(
+          '.quiz-play-answers-item',
+          [
+            stagger(50, [
+              animate(
+                '500ms ease-in',
+                style({ opacity: 0, transform: 'translateY(-20px)' }) // Элементы исчезают вверх
               ),
             ]),
           ],
@@ -52,6 +69,8 @@ export class QuizPlayComponent implements OnInit {
   correctAnswersCount: number = 0;
   currentTime: number = 30;
   progress: number = 0;
+  isAnswerVisible: boolean = true;
+
 
   constructor(
     private quizPlayService: QuizPlayService,
@@ -95,15 +114,24 @@ export class QuizPlayComponent implements OnInit {
   }
 
   onAnswerSelect(isCorrect: number): void {
-    if (isCorrect === 1) {
+    console.log('Selected answer isCorrect value:', isCorrect);
+
+    if (isCorrect) { // Проверка на истинность значения isCorrect
       this.correctAnswersCount++;
-      localStorage.setItem(
-        'correctAnswersCount',
-        this.correctAnswersCount.toString()
-      );
+      console.log('Correct answers count:', this.correctAnswersCount);
+
+      // Сохраняем значение в локальное хранилище
+      localStorage.setItem('correctAnswersCount', this.correctAnswersCount.toString());
     }
 
-    this.goToNextQuestion();
+    // Скрыть текущие ответы с анимацией
+    this.isAnswerVisible = false;
+
+    // Показать ответы для следующего вопроса через задержку
+    setTimeout(() => {
+      this.goToNextQuestion();
+      this.isAnswerVisible = true;
+    }, 500); // Должно совпадать с временем анимации `:leave`
   }
 
   goToNextQuestion(): void {

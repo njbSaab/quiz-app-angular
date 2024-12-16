@@ -14,7 +14,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule, // Импорт SharedModule вместо ChangeBackgroundDirective
-    RouterLink
+    RouterLink,
   ],
   exports: [RouterModule, QuizPlayComponent],
 })

@@ -2,8 +2,10 @@
   <div class="container">
     <h1 class="text-center text-3xl py-5">{{ quiz.title }}</h1>
 
+    <!-- Анимация для вопроса -->
     <div
       class="quiz-play-quistion bg-gradient-base-180 flex flex-col items-center justify-center relative quiz-container"
+      [@questionFadeIn]="currentQuestionIndex"
     >
       <div class="timer-box">
         <div
@@ -22,11 +24,9 @@
         </div>
       </div>
 
-      <!-- Анимация вопроса -->
       <div
         class="quistion-text"
         *ngIf="currentQuestionIndex < questions.length; else finished"
-        @questionFadeIn
       >
         <h3 class="text-2xl">
           {{ questions[currentQuestionIndex].questionText }}
@@ -34,8 +34,23 @@
       </div>
     </div>
 
-    <!-- Анимация списка ответов -->
-    <ul class="quiz-play-answers-list quiz-container" @answersFadeIn>
+    <!-- Анимация для списка ответов -->
+    <!-- <ul class="quiz-play-answers-list quiz-container">
+      <li
+        *ngFor="let answer of questions[currentQuestionIndex]?.answers"
+        (click)="onAnswerSelect(answer.isCorrect)"
+        appRandomBackground
+        class="quiz-play-answers-item bg-gradient-base-0 flex items-center justify-center cursor-pointer text-center"
+      >
+        {{ answer.text }}
+      </li>
+    </ul> -->
+
+    <ul
+      class="quiz-play-answers-list quiz-container"
+      [@answersFadeIn]="currentQuestionIndex"
+      *ngIf="isAnswerVisible"
+    >
       <li
         *ngFor="let answer of questions[currentQuestionIndex]?.answers"
         (click)="onAnswerSelect(answer.isCorrect)"
@@ -48,7 +63,6 @@
   </div>
 </div>
 
-<!-- Финальный экран -->
 <ng-template #finished>
   <h2 class="text-3xl py-5">Викторина завершена!</h2>
   <div class="btn-grup flex flex-col gap-3">
