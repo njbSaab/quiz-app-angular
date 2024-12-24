@@ -9,11 +9,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [QuizPlayComponent],
+  declarations: [QuizPlayComponent], // Убедитесь, что компонент здесь
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule, // Импорт SharedModule вместо ChangeBackgroundDirective
+    SharedModule, // Если есть SharedModule
     RouterLink,
   ],
   exports: [RouterModule, QuizPlayComponent],

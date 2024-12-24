@@ -79,7 +79,9 @@
 </ng-template>
 
 <ng-template #notFound>
-  <p class="text-2xl text-red-600 pt-[150px] text-center">
-    Упс викторина не найдена.
-  </p>
+  <div class="loading-container text-center">
+    <span class="loading loading-ring text-accent loading-lg"></span>
+    <span class="loading loading-ring text-regular loading-md"></span>
+    <p class="text-2xl text-white text-center">Загрузка...</p>
+  </div>
 </ng-template>

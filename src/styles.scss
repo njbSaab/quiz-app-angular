@@ -413,3 +413,22 @@
     width: 100%;
   }
 }
+@media (max-width: 768px) {
+  .quiz-detail {
+    .card-body {
+      position: relative;
+
+      .details {
+        position: absolute;
+        width: 90%;
+        z-index: 111;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .collapse {
+        padding-top: 65px;
+      }
+    }
+  }
+}

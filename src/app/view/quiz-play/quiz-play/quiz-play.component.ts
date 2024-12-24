@@ -1,18 +1,8 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-  query,
-  stagger,
-} from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz, Question } from '../../../core/interfaces/quiz.interface';
-import { QuizPlayService } from '../../../core/services/quiz-play.service';
+import { QuizService } from '../../../core/services/quiz.service';
 import { TimerService } from '../../../core/services/timer.service';
 
 @Component({
@@ -24,7 +14,7 @@ import { TimerService } from '../../../core/services/timer.service';
     trigger('questionFadeIn', [
       transition(':increment', [
         style({ opacity: 0, transform: 'translateY(-30px)' }),
-        animate('800ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate('1000ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
       ]),
     ]),
     trigger('answersFadeIn', [
@@ -36,7 +26,7 @@ import { TimerService } from '../../../core/services/timer.service';
             style({ opacity: 0, transform: 'translateY(20px)' }), // Элементы начинают снизу
             stagger(100, [
               animate(
-                '500ms ease-out',
+                '700ms ease-out',
                 style({ opacity: 1, transform: 'translateY(0)' }) // Плавное появление и подъем
               ),
             ]),
@@ -71,9 +61,8 @@ export class QuizPlayComponent implements OnInit {
   progress: number = 0;
   isAnswerVisible: boolean = true;
 
-
   constructor(
-    private quizPlayService: QuizPlayService,
+    private quizService: QuizService,
     private route: ActivatedRoute,
     private timerService: TimerService
   ) {}
@@ -84,7 +73,6 @@ export class QuizPlayComponent implements OnInit {
 
     this.timerService.currentTime$.subscribe((time) => {
       this.currentTime = time;
-
       if (time === 0) {
         this.goToNextQuestion();
       }
@@ -96,7 +84,9 @@ export class QuizPlayComponent implements OnInit {
 
     const quizId = Number(this.route.snapshot.paramMap.get('id'));
     console.log('Quiz ID from route:', quizId);
-    this.quizPlayService.getQuizById(quizId).subscribe((quiz) => {
+
+    // Получаем викторину по ID из Firestore
+    this.quizService.getQuizById(quizId).subscribe((quiz) => {
       if (quiz) {
         this.quiz = quiz;
         this.questions = quiz.questions;
@@ -105,11 +95,12 @@ export class QuizPlayComponent implements OnInit {
         const storedCorrectCount = localStorage.getItem('correctAnswersCount');
 
         this.currentQuestionIndex = storedIndex ? +storedIndex : 0;
-        this.correctAnswersCount = storedCorrectCount
-          ? +storedCorrectCount
-          : 0;
+        this.correctAnswersCount = storedCorrectCount ? +storedCorrectCount : 0;
 
         this.timerService.startTimer();
+      } else {
+        // Если викторина не найдена
+        console.error('Quiz not found!');
       }
     });
   }
@@ -117,30 +108,24 @@ export class QuizPlayComponent implements OnInit {
   onAnswerSelect(isCorrect: number): void {
     console.log('Selected answer isCorrect value:', isCorrect);
 
-    if (isCorrect) { // Проверка на истинность значения isCorrect
+    if (isCorrect) {
       this.correctAnswersCount++;
       console.log('Correct answers count:', this.correctAnswersCount);
 
-      // Сохраняем значение в локальное хранилище
       localStorage.setItem('correctAnswersCount', this.correctAnswersCount.toString());
     }
 
-    // Скрыть текущие ответы с анимацией
     this.isAnswerVisible = false;
 
-    // Показать ответы для следующего вопроса через задержку
     setTimeout(() => {
       this.goToNextQuestion();
       this.isAnswerVisible = true;
-    }, 500); // Должно совпадать с временем анимации `:leave`
+    }, 500);
   }
 
   goToNextQuestion(): void {
     this.currentQuestionIndex++;
-    localStorage.setItem(
-      'currentQuestionIndex',
-      this.currentQuestionIndex.toString()
-    );
+    localStorage.setItem('currentQuestionIndex', this.currentQuestionIndex.toString());
 
     if (this.currentQuestionIndex >= this.questions.length) {
       this.timerService.stopTimer();
