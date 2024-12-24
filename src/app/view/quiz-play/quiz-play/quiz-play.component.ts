@@ -95,6 +95,7 @@ export class QuizPlayComponent implements OnInit {
     });
 
     const quizId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('Quiz ID from route:', quizId);
     this.quizPlayService.getQuizById(quizId).subscribe((quiz) => {
       if (quiz) {
         this.quiz = quiz;

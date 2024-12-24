@@ -39,11 +39,11 @@ export class QuizListComponent implements OnInit {
   loadQuizzes(): void {
     this.quizService.getQuizzes().subscribe(
       (data: Quiz[]) => {
-        console.log('Полученные данные:', data);
+        console.log('Полученные данные из Firestore:', data);
         this.quizzes = data;
       },
       (error) => {
-        console.error('Ошибка загрузки данных:', error);
+        console.error('Ошибка загрузки данных из Firestore:', error);
       }
     );
   }

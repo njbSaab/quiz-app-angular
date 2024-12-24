@@ -55,6 +55,7 @@ export class QuizSingleComponent implements OnInit {
   }
 
   loadQuiz(id: number): void {
+
     this.quizService.getQuizzes().subscribe(
       (quizzes: Quiz[]) => {
         this.quiz = quizzes.find((quiz) => quiz.id === id) || null; // Ищем викторину по ID
