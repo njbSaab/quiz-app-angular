@@ -11,3 +11,11 @@
     <app-root class="flex flex-col"></app-root>
   </body>
 </html>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/ngsw-worker.js")
+      .then(() => console.log("Service Worker Registered"))
+      .catch((err) => console.error("Service Worker Registration Failed", err));
+  }
+</script>
